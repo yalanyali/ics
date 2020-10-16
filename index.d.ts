@@ -83,6 +83,8 @@ export type EventAttributes = {
   uid?: string;
   method?: string;
   recurrenceRule?: string;
+  exRule: string;
+  exDateRule: string;
   sequence?: number;
   calName?: string;
 } & ({ end: DateArray } | { duration: DurationObject });

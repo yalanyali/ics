@@ -72,6 +72,8 @@ const schema = Joi.object().keys({
   attendees: Joi.array().items(contactSchema),
   alarms: Joi.array().items(alarmSchema),
   recurrenceRule: Joi.string(),
+  exRule: Joi.string(),
+  exDateRule: Joi.string(),
   busyStatus: Joi.string().regex(/TENTATIVE|FREE|BUSY|OOF/),
   created: dateTimeSchema,
   lastModified: dateTimeSchema,

@@ -85,7 +85,7 @@ describe('pipeline.formatEvent', () => {
   it('writes a start date-time, taking the given date as UTC if requested and outputting is as Local (floating) if requested', () => {
     const event = buildEvent({ start: [2017, 5, 15, 10, 0], startInputType: 'utc', startOutputType: 'local' })
     const formattedEvent = formatEvent(event)
-    const now = dayjs(new Date(2017, 5 - 1, 15, 10, 0)).format('YYYYMMDDTHHmm00')
+    const now = dayjs(Date.UTC(2017, 5 - 1, 15, 10, 0)).format('YYYYMMDDTHHmm00')
     expect(formattedEvent).to.contain('DTSTART:'+now)
     expect(formattedEvent).to.not.contain('DTSTART:'+now+'Z')
   })
@@ -235,5 +235,15 @@ describe('pipeline.formatEvent', () => {
     const formattedEvent = formatEvent({ recurrenceRule: 'FREQ=DAILY' })
 
     expect(formattedEvent).to.contain('RRULE:FREQ=DAILY')
+  })
+  it('writes an exception rule', () => {
+    const formattedEvent = formatEvent({ exRule: 'FREQ=YEARLY;COUNT=8;BYMONTH=6,7' })
+
+    expect(formattedEvent).to.contain('EXRULE:FREQ=YEARLY;COUNT=8;BYMONTH=6,7')
+  })
+  it('writes an exception date rule', () => {
+    const formattedEvent = formatEvent({ exDateRule: '19960402T010000Z,19960403T010000Z,19960404T010000Z' })
+
+    expect(formattedEvent).to.contain('EXDATE:19960402T010000Z,19960403T010000Z,19960404T010000Z')
   })
 })

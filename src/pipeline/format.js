@@ -37,6 +37,8 @@ export default function formatEvent(attributes = {}) {
     attendees,
     alarms,
     recurrenceRule,
+    exRule,
+    exDateRule,
     busyStatus,
     created,
     lastModified,
@@ -90,6 +92,8 @@ export default function formatEvent(attributes = {}) {
   }
 
   icsFormat += recurrenceRule ? `RRULE:${recurrenceRule}\r\n` : ''
+  icsFormat += exRule ? `EXRULE:${exRule}\r\n` : ''
+  icsFormat += exDateRule ? `EXDATE:${exDateRule}\r\n` : ''
   icsFormat += duration ? `DURATION:${formatDuration(duration)}\r\n` : ''
   icsFormat += `END:VEVENT\r\n`
   icsFormat += `END:VCALENDAR\r\n`
